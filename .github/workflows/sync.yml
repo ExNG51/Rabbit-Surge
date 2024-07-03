@@ -1,0 +1,46 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # 每天凌晨2点运行一次
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v3
+        with:
+          repository: Rabbit-Spec/Surge
+          ref: Master # 你想要同步的分支
+          path: upstream_repo
+          fetch-depth: 0 # 获取完整的仓库历史记录
+
+      - name: Checkout fork repository
+        uses: actions/checkout@v3
+        with:
+          repository: ExNG51/Rabbit-Surge
+          ref: Master
+          token: ${{ secrets.SYNCWITHUPSTREAM }}
+          path: fork_repo
+          fetch-depth: 0 # 获取完整的仓库历史记录
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "scwb@keemail.me"
+          git config --global user.name "scwb"
+
+      - name: Sync with upstream
+        run: |
+          cd fork_repo
+          git remote add upstream ../upstream_repo
+          git fetch upstream
+          git merge upstream/Master --no-edit
+          git push origin Master
