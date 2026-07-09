@@ -10,3 +10,5 @@ DOMAIN-SUFFIX,1password.com
 DOMAIN-SUFFIX,1passwordusercontent.com
 # 圆刚采集卡
 DOMAIN-SUFFIX,avermedia.com
+# Pokemon Sleep
+DOMAIN-KEYWORD,sleep.pokemon
