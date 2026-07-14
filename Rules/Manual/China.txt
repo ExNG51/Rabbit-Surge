@@ -12,3 +12,5 @@ DOMAIN-SUFFIX,1passwordusercontent.com
 DOMAIN-SUFFIX,avermedia.com
 # Pokemon Sleep
 DOMAIN-KEYWORD,sleep.pokemon
+# IPv6 连接测试
+DOMAIN-SUFFIX,test-ipv6.com
